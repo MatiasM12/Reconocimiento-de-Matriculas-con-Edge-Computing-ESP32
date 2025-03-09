@@ -1,6 +1,8 @@
 #  Reconocimiento de Matrículas con ESP32 (Edge Computing) 🚘
 
-Este proyecto implementa un sistema de Reconocimiento Automático de Matrículas (ALPR) utilizando un microcontrolador **ESP32**. A través de un proceso de procesamiento de imágenes y el uso de redes neuronales, se logra detectar y reconocer las matrículas de vehículos en imágenes en tiempo real. El sistema está diseñado para ser eficiente y funcionar en dispositivos con limitaciones de memoria y procesamiento.
+Este proyecto implementa un sistema de Reconocimiento Automático de Matrículas (ALPR) utilizando un microcontrolador **ESP32**. A través de un proceso de procesamiento de imágenes y el uso de redes neuronales, se logra detectar y reconocer las matrículas de vehículos en imágenes. El sistema está diseñado para ser eficiente y funcionar en dispositivos con limitaciones de memoria y procesamiento.
+
+![T(1)](https://github.com/user-attachments/assets/299ae187-bd8a-4b4b-b03a-c958507cdfed)
 
 ## 🔧 Tecnologías Utilizadas
 
@@ -16,7 +18,7 @@ Se reconoce principalmente dos tipos de matrículas argentinas:
 - **Matrícula de 1994**: Formato LLL NNN (letras y números).
 - **Matrícula de 2015**: Formato LL NNN LL (letras, números y letras).
   
- ![Tesis (30)](https://github.com/user-attachments/assets/af1c0f6c-9258-4482-a1c6-219ba7ed712e)
+ ![T](https://github.com/user-attachments/assets/af1c0f6c-9258-4482-a1c6-219ba7ed712e)
 
 
 
@@ -34,10 +36,12 @@ El pipeline de reconocimiento de matrículas se compone de tres etapas principal
 
 El primer paso es identificar y localizar la matrícula dentro de la imagen. Este proceso incluye:
 
-- Escala de grises: Convertir la imagen a escala de grises para facilitar la detección de bordes.
-- Redimensionamiento: Ajustar el tamaño de la imagen para mejorar el procesamiento.
-- Filtros de suavizado: Aplicar filtros Gaussianos y Bilaterales para reducir el ruido.
+- Aplicar escala de grises.
+- Redimensionamiento: Ajustar el tamaño de la imagen a 450x337.
+- Aplicar filtro Gaussiano.
+- Aplicar filtro Bilateral.
 - Detección de bordes: Usar el detector de bordes de Canny.
+- Aplicar dilatación.
 - Localización y recorte: Identificar los contornos y recortar la región correspondiente a la matrícula.
 
 ### Segmentación de Caracteres
@@ -62,17 +66,3 @@ Una vez entrenados, los modelos se exportan a TensorFlow Lite y se implementan e
 ## 🔍 Conclusión
 
 Este proyecto demuestra cómo utilizar el **ESP32** junto con herramientas como **OpenCV** y **TensorFlow Lite** para implementar un sistema de reconocimiento de matrículas eficiente y de bajo consumo. A pesar de las limitaciones del hardware, el uso de técnicas de procesamiento de imágenes optimizadas y redes neuronales ligeras permite realizar tareas complejas de visión artificial en dispositivos embebidos.
-
-## 📋 Instrucciones de Uso
-
-1. **Instalar Dependencias**: Asegúrate de tener configurado el entorno de desarrollo para el ESP32 con ESP-IDF y las bibliotecas necesarias como OpenCV y TensorFlow Lite.
-3. **Subir al ESP32**: Sube el código al ESP32 y segúrate de tener un sistema de almacenamiento (como una tarjeta SD) con la imagen que desea procesar.
-4. **Ejecutar**: Al ejecutar el código, el **ESP32** procesará las imágenes y reconocerá las matrículas de los vehículos.
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Si tienes mejoras, correcciones o sugerencias, no dudes en abrir un **issue** o enviar un **pull request**.
-
-## 📝 Licencia
-
-Este proyecto está bajo la Licencia **MIT** - ver el archivo [LICENSE](LICENSE) para más detalles.
