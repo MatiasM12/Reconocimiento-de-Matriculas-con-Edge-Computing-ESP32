@@ -54,12 +54,16 @@ Una vez localizada la matrícula, se realiza la segmentación de los caracteres 
 
 ## Reconocimiento de Caracteres
 
-Se utilizan redes neuronales convolucionales (CNN) entrenadas para reconocer los caracteres en la matrícula. El modelo se entrena utilizando imágenes de caracteres de matrículas reales y se aplica aumento de datos (rotación, traslación, escalado, etc.) para mejorar su rendimiento.
+Se utilizan redes neuronales convolucionales (CNN) entrenadas para reconocer los caracteres en la matrícula. El modelo se entrena utilizando imágenes de caracteres de 20x32 en formato esca de grises de matrículas reales y se aplica aumento de datos (rotación, traslación, escalado, etc.) para mejorar su rendimiento.
 
 Los modelos creados son:
 
 - **Modelo de reconocimiento de dígitos**: Entrenado con números extraídos de matrículas.
+  ![image](https://github.com/user-attachments/assets/3c5a4da9-0990-4b2b-b79a-52d174e24649)
+
 - **Modelo de reconocimiento de letras**: Entrenado con letras de matrículas.
+  ![image](https://github.com/user-attachments/assets/815903af-44c1-43e5-b881-076637f20b80)
+
 
 Una vez entrenados, los modelos se exportan a TensorFlow Lite y se implementan en el ESP32 para su inferencia en tiempo real.
 
