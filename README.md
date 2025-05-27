@@ -1,72 +1,105 @@
-#  Reconocimiento de Matrículas con ESP32 (Edge Computing) 🚘
+# 🚘 Reconocimiento de Matrículas con ESP32 (Edge Computing)
 
-Este proyecto implementa un sistema de Reconocimiento Automático de Matrículas (ALPR) utilizando un microcontrolador **ESP32**. A través de un proceso de procesamiento de imágenes y el uso de redes neuronales, se logra detectar y reconocer las matrículas de vehículos en imágenes. El sistema está diseñado para ser eficiente y funcionar en dispositivos con limitaciones de memoria y procesamiento.
+Este proyecto implementa un sistema de **Reconocimiento Automático de Matrículas (ALPR)** utilizando un microcontrolador **ESP32**. A través de procesamiento de imágenes con **OpenCV** y redes neuronales optimizadas con **TensorFlow Lite**, el sistema es capaz de detectar y reconocer matrículas vehiculares en imágenes, directamente desde el dispositivo.
 
-![T(1)](https://github.com/user-attachments/assets/299ae187-bd8a-4b4b-b03a-c958507cdfed)
+Diseñado para funcionar en entornos con recursos limitados, este proyecto demuestra cómo la **IA embebida** puede realizar tareas de visión por computadora en tiempo real y sin necesidad de servidores externos.
 
-## 🔧 Tecnologías Utilizadas
+![Tesis (27) (2)](https://github.com/user-attachments/assets/e1a8793d-c9f1-4353-98e1-bd8317dfbc99)
 
-- **ESP32**: Plataforma de hardware embebido para capturar imágenes, procesarlas y ejecutar el modelo de reconocimiento de matrículas.
-- **OpenCV**: Biblioteca para el procesamiento de imágenes, como localización de la matrícula y segmentación de caracteres .
-- **TensorFlow Lite**: Framework de aprendizaje automático para entrenar y ejecutar el modelo de redes neuronales en el ESP32.
-- **Google Colab**: Herramienta utilizada para entrenar y ajustar el modelo de redes neuronales antes de implementarlo en el ESP32.
+---
 
-## Tipos de Matrículas Reconocidas
+## 🔧 Tecnologías utilizadas
 
-Se reconoce principalmente dos tipos de matrículas argentinas:
+- **ESP32**: Microcontrolador de bajo consumo con Wi-Fi/Bluetooth, encargado de capturar imágenes, procesarlas y ejecutar inferencias.
+- **OpenCV**: Biblioteca de visión por computadora usada para localizar la matrícula y segmentar los caracteres.
+- **TensorFlow Lite**: Framework de ML optimizado para microcontroladores, utilizado para ejecutar modelos de clasificación de caracteres.
+- **Google Colab**: Plataforma utilizada para entrenar, validar y exportar los modelos.
 
-- **Matrícula de 1994**: Formato LLL NNN (letras y números).
-- **Matrícula de 2015**: Formato LL NNN LL (letras, números y letras).
-  
- ![T](https://github.com/user-attachments/assets/af1c0f6c-9258-4482-a1c6-219ba7ed712e)
+---
 
+## 🇦🇷 Tipos de Matrículas Reconocidas
 
+El sistema fue entrenado para reconocer dos formatos comunes de matrículas argentinas:
 
-## 🛠️ Implementación del Pipeline de ALPR
+- **1994** – Formato `LLL NNN` (3 letras + 3 números)  
+- **2015** – Formato `LL NNN LL` (2 letras + 3 números + 2 letras)
 
-El pipeline de reconocimiento de matrículas se compone de tres etapas principales:
+![T](https://github.com/user-attachments/assets/af1c0f6c-9258-4482-a1c6-219ba7ed712e)
 
-1. **Procesamiento de Imágenes**: Preprocesamiento para localizar la matrícula y prepararla para su segmentación.
-2. **Segmentación de Caracteres**: Segmentación de los caracteres de la matrícula para su posterior análisis.
-3. **Reconocimiento de Caracteres con Redes Neuronales**: El modelo de redes neuronales infiere los caracteres segmentados y reconstruye la matrícula completa.
+---
+
+## 🛠️ Arquitectura del Sistema ALPR
+
+El pipeline de reconocimiento consta de tres etapas principales:
+
+1. **📸 Procesamiento de Imágenes**  
+   Localización de la matrícula dentro de la imagen.
+
+2. **🔠 Segmentación de Caracteres**  
+   Aislamiento de cada carácter presente en la matrícula.
+
+3. **🤖 Reconocimiento con Redes Neuronales**  
+   Clasificación de los caracteres mediante modelos entrenados.
+
+---
 
 ## 📸 Procesamiento de Imágenes
 
-### Localización de la Matrícula
+### 🔍 Localización de la Matrícula
 
-El primer paso es identificar y localizar la matrícula dentro de la imagen. Este proceso incluye:
+Se aplican las siguientes transformaciones sobre la imagen capturada:
 
-- Aplicar escala de grises.
-- Redimensionamiento: Ajustar el tamaño de la imagen a 450x337.
-- Aplicar filtro Gaussiano.
-- Aplicar filtro Bilateral.
-- Detección de bordes: Usar el detector de bordes de Canny.
-- Aplicar dilatación.
-- Localización y recorte: Identificar los contornos y recortar la región correspondiente a la matrícula.
+- Conversión a escala de grises  
+- Redimensionamiento a 450×337 px  
+- Filtro Gaussiano + filtro bilateral  
+- Detección de bordes (Canny)  
+- Dilatación de bordes  
+- Identificación de contornos y recorte de la región con la matrícula
 
-### Segmentación de Caracteres
+### ✂️ Segmentación de Caracteres
 
-Una vez localizada la matrícula, se realiza la segmentación de los caracteres mediante:
+Una vez detectada la placa, se aplica:
 
-- Aplicación de erosión para eliminar imperfecciones.
-- Operación de cierre para unir caracteres que podrían estar desconectados.
-- Localización y recorte de caracteres individuales para su posterior reconocimiento.
+- Erosión para eliminar ruido  
+- Operación de cierre para unir caracteres  
+- Detección de contornos individuales  
+- Recorte de cada carácter para su reconocimiento
 
-## Reconocimiento de Caracteres
+---
 
-Se utilizan redes neuronales convolucionales (CNN) entrenadas para reconocer los caracteres en la matrícula. El modelo se entrena utilizando imágenes de caracteres de 20x32 en formato esca de grises de matrículas reales y se aplica aumento de datos (rotación, traslación, escalado, etc.) para mejorar su rendimiento.
+## 🧠 Reconocimiento de Caracteres con IA
 
-Los modelos creados son:
+Se entrenaron dos modelos de **redes neuronales convolucionales (CNN)**, utilizando imágenes reales de matrículas en escala de grises y tamaño 20×32. Se aplicó **aumento de datos** (rotación, traslación, escala) para mejorar la generalización del modelo.
 
-- **Modelo de reconocimiento de dígitos**: Entrenado con números extraídos de matrículas.
+- **Modelo de dígitos** – Reconoce números del 0 al 9  
   ![image](https://github.com/user-attachments/assets/3c5a4da9-0990-4b2b-b79a-52d174e24649)
 
-- **Modelo de reconocimiento de letras**: Entrenado con letras de matrículas.
+- **Modelo de letras** – Reconoce caracteres del alfabeto  
   ![image](https://github.com/user-attachments/assets/815903af-44c1-43e5-b881-076637f20b80)
 
+Ambos modelos se exportaron a **TensorFlow Lite** y fueron integrados al firmware del ESP32 para realizar inferencias en tiempo real.
 
-Una vez entrenados, los modelos se exportan a TensorFlow Lite y se implementan en el ESP32 para su inferencia en tiempo real.
+---
+
+## 📈 Resultados
+
+- ✅ **Matrículas de 1994**: 97% de precisión (97 aciertos y 3 fallas por no localizar la placa (97/100))
+- ✅ **Matrículas de 2015**: 90% de precisión (45 aciertos y 5 fallas por errores en la predicción de caracteres (45/50))
+
+---
 
 ## 🔍 Conclusión
 
-Este proyecto demuestra cómo utilizar el **ESP32** junto con herramientas como **OpenCV** y **TensorFlow Lite** para implementar un sistema de reconocimiento de matrículas eficiente y de bajo consumo. A pesar de las limitaciones del hardware, el uso de técnicas de procesamiento de imágenes optimizadas y redes neuronales ligeras permite realizar tareas complejas de visión artificial en dispositivos embebidos.
+Este proyecto demuestra cómo es posible implementar un sistema de **visión artificial** funcional y preciso en un microcontrolador con recursos limitados.
+
+Gracias al uso de **OpenCV**, **TensorFlow Lite** y técnicas de preprocesamiento eficientes, se logra realizar **reconocimiento de matrículas en tiempo real**, sin conexión externa, con bajo consumo y buena precisión.
+
+---
+
+## 📁 Repositorio y Recursos
+
+- 📹 **Demo en video**: [enlace_al_video](https://youtu.be/-7m6hsqOaNE)
+- 🧠 **Modelos entrenados y documentación**: [Subire el enlace proximamente]
+
+---
+
