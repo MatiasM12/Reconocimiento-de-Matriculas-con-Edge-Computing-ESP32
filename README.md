@@ -1,4 +1,4 @@
-# 🚘 Reconocimiento de Matrículas con ESP32 (Edge Computing)
+# Reconocimiento de Matrículas con ESP32 (Edge Computing) 🚘 
 
 Este proyecto implementa un sistema de **Reconocimiento Automático de Matrículas (ALPR)** utilizando un microcontrolador **ESP32**. A través de procesamiento de imágenes con **OpenCV** y redes neuronales optimizadas con **TensorFlow Lite**, el sistema es capaz de detectar y reconocer matrículas vehiculares en imágenes, directamente desde el dispositivo.
 
