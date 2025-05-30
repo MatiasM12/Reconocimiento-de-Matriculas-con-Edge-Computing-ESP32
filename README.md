@@ -96,10 +96,29 @@ Gracias al uso de **OpenCV**, **TensorFlow Lite** y técnicas de preprocesamient
 
 ---
 
-## 📁 Repositorio y Recursos
+## 🎬 Videos del Proyecto
 
-- 📹 **Demo en video**: [enlace_al_video](https://youtu.be/-7m6hsqOaNE)
-- 🧠 **Modelos entrenados y documentación**: [Subire el enlace proximamente]
+### 🛠️ Implementación y Uso
 
+[![Instalación y uso](https://img.youtube.com/vi/-7m6hsqOaNE/hqdefault.jpg)](https://www.youtube.com/watch?v=-7m6hsqOaNE)  
+👉 Mira cómo instalar y configurar el entorno paso a paso.
+
+---
+
+### 🤖 Creación y Ejecución de los Modelos
+
+[![Ejecución del modelo](https://img.youtube.com/vi/l7LB9apVAt8/hqdefault.jpg)](https://www.youtube.com/watch?v=l7LB9apVAt8)  
+🚀 Observa cómo el modelo corre en el dispositivo final y realiza inferencias en tiempo real.
+
+
+
+### 🧠 Modelos utilizados en el proyecto:
+
+- 🔤 **Modelo de reconocimiento de letras**:  
+  [📥 Descargar desde Google Drive](https://drive.google.com/file/d/1wBwul02TqKC7z-JUM_JJQ3mkVl7JSMNL/view?usp=sharing)
+
+- 🔢 **Modelo de reconocimiento de números**:  
+  [📥 Descargar desde Google Drive](https://drive.google.com/file/d/1Hix8PXgfSXHBxBJe7FmlROLXMzRoDamL/view?usp=sharing)
+  
 ---
 
